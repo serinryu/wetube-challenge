@@ -1,0 +1,22 @@
+{
+  "name": "wetube2",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "youtube clone - challenge version",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon —exec babel-node src/server.js"
+  },
+  "author": "serinryu",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.10",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.10",
+    "nodemon": "^2.0.15"
+  }
+}
