@@ -1,24 +1,29 @@
 //globalRouter
-export const home = (req, res) => res.send("Home");
-export const trending = (req, res) => res.send("Trending");
-export const newStory = (req, res) => res.send("Newstory");
+export const home = (req, res) =>
+  res.render("stories/home", { pageTitle: "Home" });
+export const trending = (req, res) =>
+  res.render("stories/trending", { pageTitle: "Trending" });
+export const newStory = (req, res) =>
+  res.render("stories/newstory", { pageTitle: "NewStory" });
+
 
 //storyRouter
 export const seeStory = (req, res) => {
     const {
-        params : { id }
+      params: { id }
     } = req;
-    return res.send(`See a story of ${id}`);
+    res.render("stories/seestory", { pageTitle: `SeeStory`, id });
 };
 export const editStory = (req, res) => {
     const {
-        params : { id }
+      params: { id }
     } = req;
-    return res.send(`Edit a story of ${id}`);
+    res.render("stories/editstory", { pageTitle: `EditStory`, id });
 };
-export const deleteStory  = (req, res) => {
+export const deleteStory = (req, res) => {
     const {
-        params : { id }
+      params: { id }
     } = req;
-    return res.send(`Delete a story of ${id}`);
+    res.render("stories/deletestory", { pageTitle: `DeleteStory`, id });
 };
+  

@@ -14,6 +14,8 @@ const PORT = 4000;
 const handleListening = () => 
     console.log(`Server listening on port http://localhost:${PORT} 🤡 `);
 
+app.set("view engine", "pug");
+
 //middleware    
 app.use(urlLogger);
 app.use(timeLogger);

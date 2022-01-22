@@ -3,7 +3,7 @@ import { users, userProfile, editProfile } from "../controllers/userControllers.
 const userRouter = express.Router();
 
 userRouter.get("/", users);
-userRouter.get("/:id", userProfile);
 userRouter.get("/edit-profile", editProfile);
+userRouter.get("/:id", userProfile);
 
 export default userRouter;
