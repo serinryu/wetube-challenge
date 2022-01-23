@@ -1,0 +1,9 @@
+extends ../layout.pug
+block content 
+    h1=movie.title 
+    p=movie.rating
+    p=movie.year 
+    p=movie.description 
+    ul
+        each genre in movie.genre
+            li=genre

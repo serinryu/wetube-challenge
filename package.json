@@ -5,12 +5,13 @@
   "description": "youtube clone - challenge version",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon —exec babel-node src/server.js"
+    "dev": "nodemon —exec babel-node src/init.js"
   },
   "author": "serinryu",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.2",
+    "mongoose": "^5.13.14",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
   },

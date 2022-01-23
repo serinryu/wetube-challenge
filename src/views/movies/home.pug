@@ -1,0 +1,9 @@
+extends ../layout.pug
+include ../mixins/movie.pug
+block content 
+    h1 Movies!
+    include ../partials/filterForm.pug
+    each movie in movies 
+        +movie(movie)
+    else
+        span No videos found
