@@ -10,6 +10,7 @@
   "author": "serinryu",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^14.2.0",
     "express": "^4.17.2",
     "mongoose": "^5.13.14",
     "morgan": "^1.10.0",

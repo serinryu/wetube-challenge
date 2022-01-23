@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-mongoose.connect("mongodb://127.0.0.1:27017/wetube2", {
+mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true, 
     useUnifiedTopology: true,
 });
@@ -14,35 +14,3 @@ db.once("open", handleOpen);
 
 
 
-
-/* 
-
-
-// This gives you an array of all the movies
-export const getMovies = () => movies;
-
-// This gives you one movie, don't forget to pass the ID
-export const getMovieById = (id) => {
-  if (!id) {
-    throw Error("❌  YOU FORGOT TO PASS THE MOVIE ID TO THE FUNCTION  ❌ ");
-  }
-  return movies.find((m) => m.id === parseInt(id, 10));
-};
-
-// This gives you an array of movies with a release date of minimum X
-export const getMovieByMinimumYear = (year) => {
-  if (!year) {
-    throw Error("❌  YOU FORGOT TO PASS THE MOVIE YEAR TO THE FUNCTION  ❌");
-  }
-  return movies.filter((m) => m.year >= year);
-};
-
-// This gives you an array of movies with a rating of minimum X
-export const getMovieByMinimumRating = (rating) => {
-  if (!rating) {
-    throw Error("❌  YOU FORGOT TO PASS THE MOVIE RATING TO THE FUNCTION  ❌");
-  }
-  return movies.filter((m) => m.rating >= rating);
-};
-
-*/
