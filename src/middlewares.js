@@ -1,3 +1,7 @@
+export const localsMiddleware = (req, res, next) => {
+    res.locals.siteTitle = "Nomad Movies";
+    next();
+};
 export const urlLogger = (req, res, next) => {
     console.log(`Path : ${req.url}`);
     next();

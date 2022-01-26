@@ -1,0 +1,6 @@
+extends ../layout.pug
+block content
+    if errorMessage
+        span=errorMessage
+    h1 Upload movie
+    include ../partials/uploadForm.pug

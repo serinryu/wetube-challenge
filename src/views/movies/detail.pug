@@ -4,6 +4,13 @@ block content
     p=movie.rating
     p=movie.year 
     p=movie.description 
+    p=movie.summary 
     ul
         each genre in movie.genre
             li=genre
+        else 
+            li No genre found.
+
+    a(href=`/movies/${movie.id}/edit`) Edit this movie  ➤
+    br
+    a(href=`/movies/${movie.id}/delete`) Delete this movie  ➤

@@ -4,6 +4,11 @@ html(lang="en")
   body 
     include ./partials/header.pug
     main 
-      block content 
+        a(href=`/`) Home
+        br
+        a(href=`/upload`) Upload
+        block content 
     include ./partials/footer.pug
+  block script 
+    
   

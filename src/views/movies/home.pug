@@ -5,5 +5,8 @@ block content
     include ../partials/filterForm.pug
     each movie in movies 
         +movie(movie)
+        br
     else
-        span No videos found
+        span=!keyword ? "" : "No movie found"
+block script     
+    script(src="lodash.js")
