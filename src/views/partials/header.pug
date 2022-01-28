@@ -1,2 +1,10 @@
 header 
+  if loggedIn
+    a(href=`/user/logout`) Log out 
+    br
+    a(href=`/user/profile`) #{loggedInUser.name} 의 프로필
+  else 
+    a(href=`/user/join`) Join 
+    br
+    a(href=`/user/login`) Login
   h1=pageTitle
