@@ -74,7 +74,75 @@ export const logout = (req, res) => {
     return res.redirect("/");
 } 
 
-export const profile = (req, res) => {
-    const pageTitle = req.session.user.name;
-    return res.render("user/profile", { pageTitle })
+export const profile = async (req, res) => {
+    const { username } = req.params;
+    return res.render("user/profile", { pageTitle : `${username}'s profile` })
+};
+
+export const getEditprofile = async (req, res) => {
+    const { username } = req.params;
+    try {
+        const user = await User.findOne({username});
+        if (!user) {
+            return res.status(404).render("partials/404", { pageTitle: "User is not found"})
+        }
+        return res.render("user/editprofile", { pageTitle : `Edit  ${user.username}'s profile`, user })
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+export const postEditprofile = async (req, res) => {
+    const {
+        params: { username },
+        body: { name , email }
+    } = req;
+    try {
+        const existsUser = await User.exists({username});
+        if (!existsUser) {
+            return res.status(404).render("partials/404", { pageTitle: "User is not found"})
+        }
+        const updatedUser = await User.findOneAndUpdate({username}, {
+            name,
+            email
+        }, { new: true }
+        );
+        req.session.user = updatedUser;
+        return res.redirect(`/user/profile/${username}`)
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+export const getChangePassword = async (req, res) => {
+    return res.render("user/changepassword", { pageTitle : "Change password" })
+}
+
+export const postChangePassword = async (req, res) => {
+    const {
+        session: {
+            user: { _id },
+        },
+        body: { oldPassword, newPassword, newPasswordConfirmation },
+    } = req;
+    const user = await User.findById(_id);
+    const passwordCompare = await bcrypt.compare(oldPassword, user.password);
+    //1단계: New password confirmation 틀리면 아웃
+    if (newPassword !== newPasswordConfirmation){
+        return res.status(400).render("user/changepassword", {
+            pageTitle: "Change Password",
+            errorMessage: "The password does not match the confirmation",
+        });
+    }
+    //2단계: oldPassword 와 user.password 해싱값 다르면 아웃
+    if (!passwordCompare) {
+        return res.status(400).render("user/changepassword", {
+            pageTitle: "Change Password",
+            errorMessage: "The current password is incorrect",
+        });
+    } 
+    //세션 업데이트
+    user.password = newPassword; //DB 업데이트
+    await user.save(); //해싱
+    return res.redirect("/user/logout"); //비번 바꾸면 로그아웃
 }

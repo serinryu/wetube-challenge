@@ -15,7 +15,7 @@ export const movieDetail = async(req, res) => {
     try {
         const movie = await Movie.findOne({id});
         if (!movie) {
-            return res.render("movies/404", { pageTitle: "Movie is not found"})
+            return res.render("partials/404", { pageTitle: "Movie is not found"})
         }
         return res.render("movies/detail", {pageTitle: movie.title, movie })
     } catch (err) {

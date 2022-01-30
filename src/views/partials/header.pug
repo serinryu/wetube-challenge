@@ -2,7 +2,7 @@ header
   if loggedIn
     a(href=`/user/logout`) Log out 
     br
-    a(href=`/user/profile`) #{loggedInUser.name} 의 프로필
+    a(href=`/user/profile/${loggedInUser.username}`) #{loggedInUser.username}'s profile
   else 
     a(href=`/user/join`) Join 
     br

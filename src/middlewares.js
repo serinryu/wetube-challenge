@@ -23,9 +23,9 @@ export const securityLogger = (req, res, next) => {
 };
 
 export const protectorMiddleware = (req, res, next) => {
-    const url = req.url;
-    if (url === "/protected") {
-        return res.status(403).redirect("/");        
+    if (req.session.loggedIn) {
+      return next(); //로그인 되어 있으면 통과
+    } else {
+      return res.redirect("/user/login");
     }
-    next();
 };

@@ -1,3 +1,8 @@
 extends ../layout.pug
 
 block content 
+    h3=loggedInUser.name
+    h3=loggedInUser.email
+
+    if loggedIn
+        a(href=`/user/profile/${loggedInUser.username}/edit`) Edit your profile
