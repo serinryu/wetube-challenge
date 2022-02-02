@@ -55,7 +55,7 @@ export const postLogin = async (req, res) => {
         }
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch){
-            return res.status(400).render("login", {
+            return res.status(400).render("user/login", {
                 pageTitle,
                 errorMessage: "Wrong password"
             });
@@ -94,8 +94,12 @@ export const getEditprofile = async (req, res) => {
 
 export const postEditprofile = async (req, res) => {
     const {
+        session: {
+            user: { avatarUrl },
+        },
         params: { username },
-        body: { name , email }
+        body: { name , email },
+        file,
     } = req;
     try {
         const existsUser = await User.exists({username});
@@ -103,11 +107,13 @@ export const postEditprofile = async (req, res) => {
             return res.status(404).render("partials/404", { pageTitle: "User is not found"})
         }
         const updatedUser = await User.findOneAndUpdate({username}, {
+            avatarUrl: file ? file.path : avatarUrl,
             name,
             email
         }, { new: true }
         );
         req.session.user = updatedUser;
+        console.log(req.session.user);
         return res.redirect(`/user/profile/${username}`)
     } catch (err) {
         console.error(err);

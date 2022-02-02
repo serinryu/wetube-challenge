@@ -1,3 +1,5 @@
+import multer from "multer";
+
 export const localsMiddleware = (req, res, next) => {
     res.locals.siteTitle = "Nomad Movies";
     res.locals.loggedIn = Boolean(req.session.loggedIn);
@@ -29,3 +31,5 @@ export const protectorMiddleware = (req, res, next) => {
       return res.redirect("/user/login");
     }
 };
+
+export const uploadFiles = multer({ dest: "assets/" });
