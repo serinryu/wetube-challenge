@@ -29,15 +29,17 @@ app.use(urlLogger);
 app.use(timeLogger);
 app.use(securityLogger);
 
-/* 세션DB 에 저장된 정보 확인*/
+/* 세션DB 에 저장된 정보 확인
 app.use((req, res, next) => {
     req.sessionStore.all((error, sessions)=>{
         console.log(sessions);
         next();
     })
 })
+*/
 
 app.use("/assets", express.static("assets"));
+app.use("/texts", express.static("texts"));
 
 app.use("/", globalRouter);
 app.use("/movies", movieRouter);

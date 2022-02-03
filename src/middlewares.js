@@ -33,3 +33,15 @@ export const protectorMiddleware = (req, res, next) => {
 };
 
 export const uploadFiles = multer({ dest: "assets/" });
+
+
+let storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+      cb(null, 'texts/');
+    },
+    filename: function(req, file, cb) {
+      cb(null, file.originalname);
+    }
+});
+export const convertFiles = multer({ storage: storage });
+
