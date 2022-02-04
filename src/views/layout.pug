@@ -1,8 +1,11 @@
+include ./mixins/message.pug
 doctype html
 html(lang="en")
   include ./partials/head.pug
   body 
     include ./partials/header.pug
+    if messages.error
+      +message("error", messages.error)
     main 
         a(href=`/`) Home
         br

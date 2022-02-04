@@ -76,15 +76,31 @@ export const logout = (req, res) => {
 
 export const profile = async (req, res) => {
     const { username } = req.params;
-    return res.render("user/profile", { pageTitle : `${username}'s profile` })
-};
-
-export const getEditprofile = async (req, res) => {
-    const { username } = req.params;
     try {
         const user = await User.findOne({username});
         if (!user) {
             return res.status(404).render("partials/404", { pageTitle: "User is not found"})
+        }
+        return res.render("user/profile", { pageTitle : `${user.username}'s profile`, user , user});
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+export const getEditprofile = async (req, res) => {
+    const { 
+        session : {
+            user : { _id } ,
+        },
+        params : { username },
+    } = req;
+    try {
+        const user = await User.findOne({username});
+        if (!user) {
+            return res.status(404).render("partials/404", { pageTitle: "User is not found"})
+        }
+        if (String(_id) !== String(user._id)){
+            return res.status(403).redirect(`/user/profile/${username}`)
         }
         return res.render("user/editprofile", { pageTitle : `Edit  ${user.username}'s profile`, user })
     } catch (err) {
@@ -95,16 +111,19 @@ export const getEditprofile = async (req, res) => {
 export const postEditprofile = async (req, res) => {
     const {
         session: {
-            user: { avatarUrl },
+            user: { avatarUrl, _id },
         },
         params: { username },
         body: { name , email },
         file,
     } = req;
     try {
-        const existsUser = await User.exists({username});
+        const existsUser = await User.findOne({username});
         if (!existsUser) {
             return res.status(404).render("partials/404", { pageTitle: "User is not found"})
+        }
+        if (String(_id) !== String(existsUser._id)){
+            return res.status(403).redirect(`/user/profile/${username}`)
         }
         const updatedUser = await User.findOneAndUpdate({username}, {
             avatarUrl: file ? file.path : avatarUrl,

@@ -28,12 +28,22 @@ export const protectorMiddleware = (req, res, next) => {
     if (req.session.loggedIn) {
       return next(); //로그인 되어 있으면 통과
     } else {
+      req.flash("error", "Not authorized. Log in first");
       return res.redirect("/user/login");
     }
 };
 
-export const uploadFiles = multer({ dest: "assets/" });
+export const publicOnlyMiddleware = (req, res, next) => {
+  if (!req.session.loggedIn) {
+    return next(); //로그인 되어 있지 않으면 통과
+  } else {
+    req.flash("error", "Not authorized. Log out first.");
+    return res.redirect("/");
+  }
+};
 
+
+export const uploadFiles = multer({ dest: "assets/" });
 
 let storage = multer.diskStorage({
     destination: function(req, file, cb) {

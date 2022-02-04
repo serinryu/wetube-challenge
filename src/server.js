@@ -1,6 +1,7 @@
 import MongoStore from "connect-mongo";
 import express from "express";
 import session from "express-session";
+import flash from "express-flash";
 import {
     urlLogger, 
     timeLogger,
@@ -17,6 +18,7 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 
 //middleware   
+app.use(flash())
 app.use(express.urlencoded({ extended: true })); 
 app.use(session({
     secret: process.env.COOKIE_SECRET,
