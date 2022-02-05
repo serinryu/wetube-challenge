@@ -42,6 +42,7 @@ app.use((req, res, next) => {
 
 app.use("/assets", express.static("assets"));
 app.use("/texts", express.static("texts"));
+app.use("/output", express.static("output"));
 
 app.use("/", globalRouter);
 app.use("/movies", movieRouter);

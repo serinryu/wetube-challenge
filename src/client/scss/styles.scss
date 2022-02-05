@@ -1,0 +1,16 @@
+@import "./config/_variables";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap');
+
+
+body {
+  font-family: 'Playfair Display', serif;
+  background-color: $brown;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  width: 80%;
+}
