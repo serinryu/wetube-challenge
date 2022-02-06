@@ -9,6 +9,8 @@ const movieSchema = new Schema({
     year : { type: Number, required: true, min: 0, max: new Date().getFullYear() },
     rating : { type: Number, required: true, min: 0, max: 10  },
     genre : [{ type: String }],
+    fileUrl: { type: String, required: true },
+    owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
 })
 
 movieSchema.static("formatGenres", function(genre){

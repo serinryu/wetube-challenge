@@ -1,4 +1,6 @@
-form(method="POST")
+form(method="POST", enctype="multipart/form-data")
+    label(for="movie") movie File
+    input(type="file", accept="video/*", required, id="movie", name="movie")
     input(type="String", placeholder="title", name="title", required)
     input(type="number", placeholder="id", name="id", required)
     input(type="String", placeholder="description", name="description", required)

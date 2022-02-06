@@ -7,9 +7,9 @@ html(lang="en")
     if messages.error
       +message("error", messages.error)
     main 
-        a(href=`/`) Home
+        a(href='/') Home
         br
-        a(href=`/upload`) Upload
+        a(href='/movies/upload') Upload
         block content 
     include ./partials/footer.pug
   block script 

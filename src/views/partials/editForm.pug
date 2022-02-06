@@ -1,4 +1,6 @@
-form(method="POST")
+form(method="POST", enctype="multipart/form-data")
+    label(for="movie") edit movie File
+    input(type="file", accept="video/*", required, id="movie", name="editmovie")
     input(type="String", placeholder="title", name="title", required, value=movie.title)
     input(type="number", placeholder="id", name="id", required, value=movie.id)
     input(type="String", placeholder="description", name="description", required, value=movie.description)

@@ -41,6 +41,7 @@ app.use((req, res, next) => {
 */
 
 app.use("/assets", express.static("assets"));
+app.use("/movies", express.static("movies"));
 app.use("/texts", express.static("texts"));
 app.use("/output", express.static("output"));
 

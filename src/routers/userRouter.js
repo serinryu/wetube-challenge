@@ -1,6 +1,6 @@
 import express from "express";
 import { getJoin, postJoin, getLogin, postLogin, logout, profile , getEditprofile, postEditprofile, getChangePassword, postChangePassword } from "../controllers/userController.js";
-import { protectorMiddleware, publicOnlyMiddleware, uploadFiles } from "../middlewares.js";
+import { protectorMiddleware, publicOnlyMiddleware, uploadProfile } from "../middlewares.js";
 
 const userRouter = express.Router();
 userRouter
@@ -22,7 +22,7 @@ userRouter
     .route("/profile/:username/edit")
     .all(protectorMiddleware) //로그인한사람만 입장
     .get(getEditprofile)
-    .post(uploadFiles.single("avatar"), postEditprofile); 
+    .post(uploadProfile.single("avatar"), postEditprofile); 
 userRouter
     .route("/changepassword")
     .all(protectorMiddleware)

@@ -1,5 +1,9 @@
 extends ../layout.pug
 block content 
+    if movie.fileUrl
+        video(src="/" + movie.fileUrl, controls) 
+    else 
+        p No video file uploaded       
     h1=movie.title 
     p=movie.rating
     p=movie.year 

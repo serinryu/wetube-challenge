@@ -43,7 +43,8 @@ export const publicOnlyMiddleware = (req, res, next) => {
 };
 
 
-export const uploadFiles = multer({ dest: "assets/" });
+export const uploadProfile = multer({ dest: "assets/" });
+export const uploadMovie = multer({ dest: "movies/" });
 
 let storage = multer.diskStorage({
     destination: function(req, file, cb) {

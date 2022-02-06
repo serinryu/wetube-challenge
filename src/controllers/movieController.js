@@ -1,5 +1,4 @@
 import Movie from "../models/Movie.js";
-import _ from "lodash";
 
 export const home = async(req, res) => {
     try {
@@ -65,13 +64,19 @@ export const getUpload = (req, res) => {
     return res.render("movies/upload", { pageTitle : "Upload" })
 };
 
-export const postUpload = async(req, res) => {
+export const postUpload = async (req, res) => {
+    const {
+        user: { _id },
+    } = req.session;
     const { title, id, description, summary, year, rating, genre } = req.body;
+    const { path: fileUrl } = req.file;
     if (year < 0 || year > new Date().getFullYear()) {
-        return res.status(400).redirect("/upload");
+        req.flash("error", "Check year");
+        return res.status(400).redirect("/movies/upload");
     }
     if (rating < 0 || rating > 10) {
-        return res.status(400).redirect("/upload");
+        req.flash("error", "Rate range : 0~10");
+        return res.status(400).redirect("/movies/upload");
     }
     try {
         await Movie.create({
@@ -82,11 +87,13 @@ export const postUpload = async(req, res) => {
             year,
             rating,
             genre : Movie.formatGenres(genre), //쉼표 포함된 문자열로 받는데 이것을 Movie.js에서 선언한 static 함수 사용하여 배열로 만듦
+            fileUrl,
+            owner: _id,
         });
         return res.redirect("/");
     } catch (error) {
         console.log(error);
-        return res.status(400).render("movie/upload", {
+        return res.status(400).render("movies/upload", {
             pageTitle: "Upload Movie",
             errorMessage: error._message,
         })
@@ -110,7 +117,8 @@ export const postEdit = async (req, res) => {
     const {
         params: { id },
         body: { title, description, summary, year, rating, genre  }
-      } = req;
+    } = req;
+    const { path: fileUrl } = req.file;
     /*
     const { id } = req.params
     const { title, description, summary, year, rating, genre } = req.body;
@@ -121,6 +129,7 @@ export const postEdit = async (req, res) => {
             return res.status(404).render("404", { pageTitle: "Movie no found." });
         }
         await Movie.findOneAndUpdate({id:id}, {
+            fileUrl,
             title, 
             description, 
             summary, 
