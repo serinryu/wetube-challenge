@@ -80,10 +80,10 @@ const handleFullscreen = () => {
     if (fullscreen) {
         document.exitFullscreen();
         fullScreenIcon.classList = "fas fa-expand";
-      } else {
+    } else {
         videoContainer.requestFullscreen();
         fullScreenIcon.classList = "fas fa-compress";
-      }
+    }
 };
 
 const hideControls = () => videoControls.classList.remove("showing");
@@ -104,19 +104,29 @@ const handleMouseMove = () => {
 const handleMouseLeave = () => {
   controlsTimeout = setTimeout(() => {
     videoControls.classList.remove("showing");
-  }, 3000);  //바로 사라지게 하는 것이 아니라 3초 기다리고 class 제거 (setTimeout() 이라는 함수 중요!!!!)
+  }, 3000);  //바로 사라지게 하는 것이 아니라 3초 기다리고 class 제거
+};
+
+/*키보드-영상 단축키 모음*/
+const keyboardShortcut = (e) => {
+    if(e.code == 'Space'){
+        handlePlayClick();
+    }
+    if(e.code == 'KeyF'){
+        handleFullscreen();
+    }
 };
 
 video.addEventListener("mousemove", handleMouseMove);
 video.addEventListener("mouseleave", handleMouseLeave);
-
 playBtn.addEventListener("click", handlePlayClick);
 video.addEventListener("click", handlePlayClick);
 video.addEventListener("pause", handlePause);
 video.addEventListener("play", handlePlay);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolume);
-video.addEventListener("loadedmetadata", handleLoadedMetadata); 
+video.addEventListener("loadeddata", handleLoadedMetadata); 
 video.addEventListener("timeupdate", handleTimeUpdate);
 timeline.addEventListener("input", handleTimeline);
 fullScreenBtn.addEventListener("click", handleFullscreen);
+document.addEventListener("keydown", keyboardShortcut);
