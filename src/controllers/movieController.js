@@ -12,7 +12,7 @@ export const home = async(req, res) => {
 export const movieDetail = async(req, res) => {
     const { id } = req.params;
     try {
-        const movie = await Movie.findOne({id});
+        const movie = await Movie.findById(id);
         if (!movie) {
             return res.render("partials/404", { pageTitle: "Movie is not found"})
         }
@@ -81,7 +81,6 @@ export const postUpload = async (req, res) => {
     try {
         await Movie.create({
             title,
-            id,
             description,
             summary,
             year,
@@ -103,7 +102,7 @@ export const postUpload = async (req, res) => {
 export const getEdit = async (req, res) => {
     const { id } = req.params;
     try {
-        const movie = await Movie.findOne({id});
+        const movie = await Movie.findById(id);
         if (!movie) {
             return res.status(404).render("404", { pageTitle: "Movie no found." });
         }
@@ -124,11 +123,12 @@ export const postEdit = async (req, res) => {
     const { title, description, summary, year, rating, genre } = req.body;
     */
    try {
-        const movie = await Movie.exists({id:id});
+        const movie = await Movie.exists({_id:id});
         if (!movie) {
-            return res.status(404).render("404", { pageTitle: "Movie no found." });
+            return res.status(404).render("partials/404", { pageTitle: "Movie no found." });
         }
-        await Movie.findOneAndUpdate({id:id}, {
+        console.log(movie);
+        await Movie.findByIdAndUpdate(id, {
             fileUrl,
             title, 
             description, 
@@ -137,25 +137,25 @@ export const postEdit = async (req, res) => {
             rating, 
             genre : Movie.formatGenres(genre)
         });
-        return res.redirect(`/movies/${id}`)
+        return res.redirect(`/movies/${id}`) 
     } catch (err) {
         console.error(err);
-    }
+    } 
 };
 
 export const deleteMovie = async (req, res) => {
     const { id } = req.params;
-    const movie = await Movie.findOne({id});
+    const movie = await Movie.findById(id);
     if (!movie) {
       return res.status(404).render("404", { pageTitle: "Movie no found." });
     }
-    await Movie.findOneAndDelete({id:id});
+    await Movie.findByIdAndDelete(id);
     return res.redirect("/");
 };
 
 export const registerView = async (req, res) => {
     const { id } = req.params; 
-    const movie = await Movie.findOne({id});
+    const movie = await Movie.findById(id);
     if (!movie){
         return res.sendStatus(404);
     }

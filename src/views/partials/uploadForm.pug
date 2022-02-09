@@ -1,11 +1,16 @@
 form(method="POST", enctype="multipart/form-data")
-    label(for="movie") movie File
+    label(for="movie") Movie File
     input(type="file", accept="video/*", required, id="movie", name="movie")
+    label(for="title") Title
     input(type="String", placeholder="title", name="title", required)
-    input(type="number", placeholder="id", name="id", required)
+    label(for="description") Description
     input(type="String", placeholder="description", name="description", required)
+    label(for="summary") Summary
     input(type="String", placeholder="summary", name="summary", required)
+    label(for="year") Released year
     input(type="number", placeholder="year", name="year", required)
+    label(for="rating") Rating
     input(type="number", placeholder="rating", name="rating", required)
+    label(for="genre") Genre
     input(type="String", placeholder="genre", name="genre", required)
     input(type="submit", value="Upload", required)

@@ -3,7 +3,6 @@ const { Schema } = mongoose;
 
 const movieSchema = new Schema({
     title : { type: String, required: true },
-    id: { type: Number, required: true  }, 
     description: { type: String, required: true  },
     summary : { type: String, required: true  },
     year : { type: Number, required: true, min: 0, max: new Date().getFullYear() },
