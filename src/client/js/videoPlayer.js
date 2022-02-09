@@ -117,6 +117,13 @@ const keyboardShortcut = (e) => {
     }
 };
 
+const handleEnded = () => {
+    const { id } = videoContainer.dataset;
+    fetch(`/api/movies/${id}/view`, {
+      method: "POST",
+    });
+};
+
 video.addEventListener("mousemove", handleMouseMove);
 video.addEventListener("mouseleave", handleMouseLeave);
 playBtn.addEventListener("click", handlePlayClick);
@@ -130,3 +137,4 @@ video.addEventListener("timeupdate", handleTimeUpdate);
 timeline.addEventListener("input", handleTimeline);
 fullScreenBtn.addEventListener("click", handleFullscreen);
 document.addEventListener("keydown", keyboardShortcut);
+video.addEventListener("ended", handleEnded);

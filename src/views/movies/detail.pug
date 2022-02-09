@@ -1,6 +1,6 @@
 extends ../layout.pug
 block content 
-    div#videoContainer
+    div#videoContainer(data-id=movie.id)
         video(src="/" + movie.fileUrl) 
         div#videoControls.videoControls
             div.videoControls__play
@@ -20,10 +20,11 @@ block content
                     i.fas.fa-expand
         
     h1=movie.title 
-    p=movie.rating
-    p=movie.year 
-    p=movie.description 
-    p=movie.summary 
+    p views: #{movie.meta.views}
+    p Rating: #{movie.rating}
+    p Release Year: #{movie.year} 
+    p Description: #{movie.description}
+    p Summary: #{movie.summary} 
     ul
         each genre in movie.genre
             li=genre

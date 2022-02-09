@@ -11,6 +11,7 @@ import {
 import globalRouter from "./routers/globalRouter.js";
 import movieRouter from "./routers/movieRouter.js";
 import userRouter from "./routers/userRouter.js";
+import apiRouter from "./routers/apiRouter";
 
 const app = express();
 
@@ -48,5 +49,6 @@ app.use("/output", express.static("output"));
 app.use("/", globalRouter);
 app.use("/movies", movieRouter);
 app.use("/user", userRouter);
+app.use("/api", apiRouter);
 
 export default app;

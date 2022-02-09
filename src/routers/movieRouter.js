@@ -20,9 +20,4 @@ movieRouter
     .all(protectorMiddleware)
     .get("/:id/delete", deleteMovie);
 
-/*
-
-*/
-//postupload ㄸㅐ multer 기능이 안되는데..ㅅㅂ...뭐지? 1시간 넘게 ;; 시발 뭐지? 뭐지?
-
 export default movieRouter;

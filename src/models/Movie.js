@@ -11,6 +11,9 @@ const movieSchema = new Schema({
     genre : [{ type: String }],
     fileUrl: { type: String, required: true },
     owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
+    meta : { 
+        views : { type: Number, default:0, required:true },
+    }
 })
 
 movieSchema.static("formatGenres", function(genre){

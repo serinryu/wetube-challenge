@@ -153,3 +153,14 @@ export const deleteMovie = async (req, res) => {
     return res.redirect("/");
 };
 
+export const registerView = async (req, res) => {
+    const { id } = req.params; 
+    const movie = await Movie.findOne({id});
+    if (!movie){
+        return res.sendStatus(404);
+    }
+    //console.log(movie);
+    movie.meta.views = movie.meta.views + 1;
+    await movie.save();
+    return res.sendStatus(200);
+}
