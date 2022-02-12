@@ -1,6 +1,12 @@
 extends ../layout.pug
 block content
+    div
+        video#preview
+        button#startBtn Start Recording
     if errorMessage
         span=errorMessage
     h1 Upload movie
     include ../partials/uploadForm.pug
+
+block script
+    script(src="/output/js/recorder.js")

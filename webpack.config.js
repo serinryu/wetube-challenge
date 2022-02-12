@@ -4,7 +4,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
     entry: {
       main: "./src/client/js/main.js", 
-      videoPlayer: "./src/client/js/videoPlayer.js"
+      videoPlayer: "./src/client/js/videoPlayer.js",
+      recorder: "./src/client/js/recorder.js",
     },
     plugins: [new MiniCssExtractPlugin({ //css와 분리(번들화)
       filename: "css/styles.css",
