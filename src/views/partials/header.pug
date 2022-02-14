@@ -1,10 +1,26 @@
 header 
-  if loggedIn
-    a(href=`/user/logout`) Log out 
-    br
-    a(href=`/user/profile/${loggedInUser.username}`) #{loggedInUser.username}'s profile
-  else 
-    a(href=`/user/join`) Join 
-    br
-    a(href=`/user/login`) Login
-  h1=pageTitle
+    a(href="/").header__logo
+        i.fab.fa-youtube
+
+    nav
+    ul
+        li
+            a(href='/') Home
+        li
+            a(href='/movies/upload') Upload
+
+        if loggedIn
+            li
+                a(href=`/user/logout`) Log out 
+            li
+                a(href=`/user/profile/${loggedInUser.username}`)
+                    if loggedInUser.avatarUrl === ""
+                      span 😀
+                    else
+                      img.header__avatar(src="/" + loggedInUser.avatarUrl)
+        else
+            li
+                a(href=`/user/join`).header__btn Join                      
+            li
+                a(href=`/user/login`) Login
+

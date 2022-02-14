@@ -8,14 +8,20 @@ movieRouter
     .route("/upload")
     .all(protectorMiddleware)
     .get(getUpload)
-    .post(uploadMovie.single("movie"), postUpload);
+    .post(uploadMovie.fields([
+        { name : "video" }, 
+        { name : "thumb" }
+    ]), postUpload);
 movieRouter
     .get("/:id", movieDetail);
 movieRouter
     .route("/:id/edit")
     .all(protectorMiddleware)
     .get(getEdit)
-    .post(uploadMovie.single("editmovie"), postEdit);
+    .post(uploadMovie.fields([
+        { name : "video" },
+        { name : "thumb" }
+    ]), postEdit);
 movieRouter
     .all(protectorMiddleware)
     .get("/:id/delete", deleteMovie);

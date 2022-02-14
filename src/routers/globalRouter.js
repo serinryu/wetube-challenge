@@ -7,7 +7,9 @@ const globalRouter = express.Router();
 
 globalRouter.get("/", home);
 globalRouter.get("/search", filterMovie);
-globalRouter.route("/convert").get(getConvert). post(convertFiles.single("textfile"), postConvert);
+globalRouter.route("/convert")
+    .get(getConvert)
+    .post(convertFiles.single("textfile"), postConvert);
 globalRouter.get("/convert/:id", converDetail);
 
 export default globalRouter;

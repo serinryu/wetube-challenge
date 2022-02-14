@@ -1,3 +1,6 @@
 mixin movie(movie)
-    a(href=`../movies/${movie.id}`)=`${movie.title}` 
-    
+    a(href=`../movies/${movie.id}`).video-mixin
+        div.video-mixin__thumb(style=`background-image:url(${movie.thumbUrl});background-size:cover;background-position:center;`)
+        div.video-mixin__data
+            span.video-mixin__title=movie.title
+            div.video-mixin__meta=`조회수 ${movie.meta.views}`

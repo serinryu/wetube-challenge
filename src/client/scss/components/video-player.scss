@@ -1,5 +1,8 @@
 #videoContainer {
     width: 80%;
+    display: flex;
+    align-items: center;
+    margin: auto;
     position: relative;
     video {
       width: 100%;
@@ -50,3 +53,7 @@
     }
 }
   
+
+h1 {
+  font-size: 50px;
+}

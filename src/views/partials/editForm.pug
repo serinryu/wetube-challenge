@@ -1,7 +1,10 @@
 form(method="POST", enctype="multipart/form-data")
-    
-    label(for="movie") edit movie File
-    input(type="file", accept="video/*", required, id="movie", name="editmovie", value=movie.fileUrl)
+    label(for="video") Movie File
+    input(type="file", accept="video/*", required, id="video", name="video")
+
+    label(for="thumb") Thumbnail File
+    input(type="file", accept="image/*", required, id="thumb", name="thumb") 
+
     label(for="title") Title
     input(type="String", placeholder="title", name="title", required, value=movie.title)
     label(for="description") Description

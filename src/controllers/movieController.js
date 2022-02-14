@@ -1,8 +1,11 @@
 import Movie from "../models/Movie.js";
+import User from "../models/User";
+import _ from "lodash";
 
 export const home = async(req, res) => {
     try {
-        const movies = await Movie.find({});
+        const movies = await Movie.find({})
+            .populate("owner");
         return res.render("movies/home", { pageTitle: "Home", movies })
     } catch (err) {
         console.error(err);
@@ -69,7 +72,7 @@ export const postUpload = async (req, res) => {
         user: { _id },
     } = req.session;
     const { title, id, description, summary, year, rating, genre } = req.body;
-    const { path: fileUrl } = req.file;
+    const { video, thumb } = req.files;
     if (year < 0 || year > new Date().getFullYear()) {
         req.flash("error", "Check year");
         return res.status(400).redirect("/movies/upload");
@@ -86,8 +89,9 @@ export const postUpload = async (req, res) => {
             year,
             rating,
             genre : Movie.formatGenres(genre), //쉼표 포함된 문자열로 받는데 이것을 Movie.js에서 선언한 static 함수 사용하여 배열로 만듦
-            fileUrl,
             owner: _id,
+            fileUrl: video[0].path,
+            thumbUrl: thumb[0].path,
         });
         return res.redirect("/");
     } catch (error) {
@@ -117,7 +121,7 @@ export const postEdit = async (req, res) => {
         params: { id },
         body: { title, description, summary, year, rating, genre  }
     } = req;
-    const { path: fileUrl } = req.file;
+    const { video, thumb } = req.files;
     /*
     const { id } = req.params
     const { title, description, summary, year, rating, genre } = req.body;
@@ -129,13 +133,14 @@ export const postEdit = async (req, res) => {
         }
         console.log(movie);
         await Movie.findByIdAndUpdate(id, {
-            fileUrl,
             title, 
             description, 
             summary, 
             year, 
             rating, 
-            genre : Movie.formatGenres(genre)
+            genre : Movie.formatGenres(genre),
+            fileUrl: video[0].path,
+            thumbUrl: thumb[0].path,
         });
         return res.redirect(`/movies/${id}`) 
     } catch (err) {

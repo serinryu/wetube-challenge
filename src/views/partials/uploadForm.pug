@@ -1,8 +1,14 @@
 form(method="POST", enctype="multipart/form-data")
-    label(for="movie") Movie File
-    input(type="file", accept="video/*", required, id="movie", name="movie")
+    label(for="video") Movie File
+    input(type="file", accept="video/*", required, id="video", name="video")
+    
     label(for="title") Title
-    input(type="String", placeholder="title", name="title", required)
+    input(type="String", placeholder="title", 
+    name="title", required)
+
+    label(for="thumb") Thumbnail File
+    input(type="file", accept="image/*", required, id="thumb", name="thumb")
+    
     label(for="description") Description
     input(type="String", placeholder="description", name="description", required)
     label(for="summary") Summary

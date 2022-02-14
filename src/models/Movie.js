@@ -9,6 +9,7 @@ const movieSchema = new Schema({
     rating : { type: Number, required: true, min: 0, max: 10  },
     genre : [{ type: String }],
     fileUrl: { type: String, required: true },
+    thumbUrl: { type: String, required: true },
     owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
     meta : { 
         views : { type: Number, default:0, required:true },

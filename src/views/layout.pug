@@ -7,11 +7,7 @@ html(lang="en")
     if messages.error
       +message("error", messages.error)
     main 
-        a(href='/') Home
-        br
-        a(href='/movies/upload') Upload
-        br
-        block content 
+      block content 
     include ./partials/footer.pug
   script(src="/output/js/main.js")
   block script 
