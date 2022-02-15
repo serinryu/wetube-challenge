@@ -136,5 +136,11 @@ video.addEventListener("loadeddata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
 timeline.addEventListener("input", handleTimeline);
 fullScreenBtn.addEventListener("click", handleFullscreen);
-document.addEventListener("keydown", keyboardShortcut);
+//document.addEventListener("keydown", keyboardShortcut);
 video.addEventListener("ended", handleEnded);
+
+document.addEventListener("keypress", (event) => {
+    if (event.code === ("Space"||"keyF") && event.target.id !== "textarea") {
+        handlePlayClick();
+    }
+}); 

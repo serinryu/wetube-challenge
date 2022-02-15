@@ -13,7 +13,8 @@ const movieSchema = new Schema({
     owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
     meta : { 
         views : { type: Number, default:0, required:true },
-    }
+    },
+    comments : [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment"}],
 })
 
 movieSchema.static("formatGenres", function(genre){

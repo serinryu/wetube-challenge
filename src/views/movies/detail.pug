@@ -20,6 +20,9 @@ block content
                     i.fas.fa-expand
         
     h1=movie.title 
+    small.video__owner Uploaded by 
+        a(href=`/user/${movie.owner._id}`)=movie.owner
+
     div
         p views: #{movie.meta.views}
     div
@@ -36,9 +39,19 @@ block content
         else 
             li No genre found.
 
-    div.edit-or-delete
-        a(href=`/movies/${movie.id}/edit`) Edit this movie  ➤
-        br
-        a(href=`/movies/${movie.id}/delete`) Delete this movie  ➤
+    if loggedIn
+        if String(movie.owner._id) === String(loggedInUser._id)
+            div.edit-or-delete
+                a(href=`/movies/${movie.id}/edit`) Edit this movie  ➤
+                br
+                a(href=`/movies/${movie.id}/delete`) Delete this movie  ➤
+
+        div.video__comments
+        form.video__comment-form#commentForm
+            textarea(id="textarea", cols="30", rows="10", placeholder="Write a nice commment...")
+            button Add Comment
+
     block script 
-    script(src="/output/js/videoPlayer.js")
+        script(src="/output/js/videoPlayer.js")
+        //if loggedIn
+        script(src="/output/js/commentSection.js")
