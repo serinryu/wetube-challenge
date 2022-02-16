@@ -1,6 +1,8 @@
 import Movie from "../models/Movie.js";
-import User from "../models/User";
+import User from "../models/User.js";
+import Comment from "../models/Comment.js";
 import _ from "lodash";
+import "regenerator-runtime";
 
 export const home = async(req, res) => {
     try {
@@ -15,7 +17,7 @@ export const home = async(req, res) => {
 export const movieDetail = async(req, res) => {
     const { id } = req.params;
     try {
-        const movie = await Movie.findById(id);
+        const movie = await Movie.findById(id).populate("owner").populate("comments");
         if (!movie) {
             return res.render("partials/404", { pageTitle: "Movie is not found"})
         }
@@ -168,4 +170,27 @@ export const registerView = async (req, res) => {
     movie.meta.views = movie.meta.views + 1;
     await movie.save();
     return res.sendStatus(200);
-}
+};
+
+
+export const createComment = async (req, res) => {
+    console.log(req.body.text)
+    const {
+        session: { user },
+        body: { text },
+        params: { id },
+    } = req;
+    const movie = await Movie.findById(id).populate("comments")
+    if (!movie) {
+        return res.sendStatus(404);
+    }
+    const comment = await Comment.create({ //coment 생성
+        text,
+        owner: user._id,
+        movie: id,
+    });
+    movie.comments.push(comment); 
+    movie.save();
+    console.log(movie);
+    return res.sendStatus(201);
+};

@@ -18,21 +18,16 @@ block content
             div
                 span#fullScreen 
                     i.fas.fa-expand
-        
-    h1=movie.title 
-    small.video__owner Uploaded by 
-        a(href=`/user/${movie.owner._id}`)=movie.owner
+    div.video__data
+        p.video__title=movie.title   
+        small.video__owner Uploaded by 
+            a(href=`/user/profile/${movie.owner.username}`)=movie.owner.username
+        small views: #{movie.meta.views}
+        small Rating: #{movie.rating}
+        small Release Year: #{movie.year} 
+        small Description: #{movie.description}
+        small Summary: #{movie.summary} 
 
-    div
-        p views: #{movie.meta.views}
-    div
-        p Rating: #{movie.rating}
-    div
-        p Release Year: #{movie.year} 
-    div
-        p Description: #{movie.description}
-    div
-        p Summary: #{movie.summary} 
     ul
         each genre in movie.genre
             li=`#${genre}`
@@ -46,10 +41,17 @@ block content
                 br
                 a(href=`/movies/${movie.id}/delete`) Delete this movie  ➤
 
-        div.video__comments
-        form.video__comment-form#commentForm
-            textarea(id="textarea", cols="30", rows="10", placeholder="Write a nice commment...")
-            button Add Comment
+        div.video__add-comments
+            form.video__comment-form.form#commentForm
+                textarea(id="textarea", cols="30", rows="3", placeholder="Write a nice commment...")
+                input(type="submit", value="Add Comment")#commentSubmit
+    div.video__comments
+        ul
+            each comment in movie.comments.reverse()
+                li.video__comment
+                    i.fas.fa-comment
+                    span  #{comment.text}
+
 
     block script 
         script(src="/output/js/videoPlayer.js")
