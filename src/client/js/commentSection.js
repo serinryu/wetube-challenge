@@ -23,7 +23,7 @@ const addComment = (text) => {
 
 const deleteComment = (event) => {
     const li = event.srcElement.parentNode; //click 이벤트가 발생한 span의 부모노드
-    li.remove(); //프론트앤드
+    li.remove();
 };
 
 const handleSubmit =  async (e) => {
@@ -34,14 +34,14 @@ const handleSubmit =  async (e) => {
     if (text === "") {
         return;
     }
-    const { status } = await fetch(`/api/movies/${videoId}/comment`, { 
+    const response = await fetch(`/api/movies/${videoId}/comment`, { 
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ text }),
     });
-    if (status === 201) {  //fetch 작업을 성공했을 때 
+    if (response.status === 201) {  //fetch 작업을 성공했을 때 
         textarea.value = "";
         addComment(text);
     }
@@ -50,12 +50,17 @@ const handleSubmit =  async (e) => {
 const handleDelete = async (event) => {
     const commentId = oneComment.dataset.id;
     const response = await fetch(`/api/movies/${commentId}/comment/delete`, { 
-        method: "POST",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
     });
-    deleteComment(event);
+    if(response.status === 201) {
+        deleteComment(event);
+    }
+    if(response.status === 403) {
+        alert("댓글 주인이 아닙니다.");
+    }
 };
 
 

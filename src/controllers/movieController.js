@@ -174,30 +174,26 @@ export const registerView = async (req, res) => {
 
 
 export const createComment = async (req, res) => {
-    /* 댓글이 두 번 작성되는 에러 발생 (post 가 두 번 되고 있다.) */
+    /* 댓글이 두 번 작성되는 에러 발생 (post 가 두 번 되고 있다.)*/
     const {
         session: { user },
         body: { text },
         params: { id },
     } = req;
     console.log(id);
-    console.log("a");
-    const comment = await Comment.create({ 
+    console.log("twice..");
+    const comment = await Comment.create({   
         text,
         owner: user._id,
         movie: id,
     });
     console.log(text);
     const movie = await Movie.findById(id); 
-    console.log("c");
     if (!movie) {
         return res.sendStatus(404);
     }
-    console.log("d");
     await movie.comments.push(comment._id); 
-    console.log("e");
     await movie.save();
-    console.log("f");
     return res.sendStatus(201);
 };
 
@@ -214,5 +210,5 @@ export const deleteComment = async (req, res) => {
         return res.Status(403).redirect("/");
     }
     await Comment.findByIdAndDelete(id);
-    return res.status(200).redirect(`/movies/${comment.movie._id}`);
+    return res.sendStatus(201);
 };

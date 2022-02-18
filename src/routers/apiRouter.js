@@ -5,6 +5,6 @@ const apiRouter = express.Router();
 
 apiRouter.post("/movies/:id/view", registerView);
 apiRouter.post("/movies/:id/comment", createComment);
-apiRouter.post("/movies/:id/comment/delete", deleteComment);
+apiRouter.delete("/movies/:id/comment/delete", deleteComment);
 
 export default apiRouter;
