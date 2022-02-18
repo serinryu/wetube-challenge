@@ -2,7 +2,6 @@ import Movie from "../models/Movie.js";
 import User from "../models/User.js";
 import Comment from "../models/Comment.js";
 import _ from "lodash";
-import "regenerator-runtime";
 
 export const home = async(req, res) => {
     try {
@@ -21,6 +20,7 @@ export const movieDetail = async(req, res) => {
         if (!movie) {
             return res.render("partials/404", { pageTitle: "Movie is not found"})
         }
+        //console.log(movie);
         return res.render("movies/detail", {pageTitle: movie.title, movie })
     } catch (err) {
         console.error(err);
@@ -174,23 +174,45 @@ export const registerView = async (req, res) => {
 
 
 export const createComment = async (req, res) => {
-    console.log(req.body.text)
+    /* 댓글이 두 번 작성되는 에러 발생 (post 가 두 번 되고 있다.) */
     const {
         session: { user },
         body: { text },
         params: { id },
     } = req;
-    const movie = await Movie.findById(id).populate("comments")
-    if (!movie) {
-        return res.sendStatus(404);
-    }
-    const comment = await Comment.create({ //coment 생성
+    console.log(id);
+    console.log("a");
+    const comment = await Comment.create({ 
         text,
         owner: user._id,
         movie: id,
     });
-    movie.comments.push(comment); 
-    movie.save();
-    console.log(movie);
+    console.log(text);
+    const movie = await Movie.findById(id); 
+    console.log("c");
+    if (!movie) {
+        return res.sendStatus(404);
+    }
+    console.log("d");
+    await movie.comments.push(comment._id); 
+    console.log("e");
+    await movie.save();
+    console.log("f");
     return res.sendStatus(201);
+};
+
+export const deleteComment = async (req, res) => {
+    const {
+        params: { id },
+        session: { user },
+    } = req;
+    const comment = await Comment.findById(id).populate("video").populate("owner");
+    if (!comment) {
+        return res.sendStatus(404);
+    }
+    if (String(user._id) !== String(comment.owner._id)) {
+        return res.Status(403).redirect("/");
+    }
+    await Comment.findByIdAndDelete(id);
+    return res.status(200).redirect(`/movies/${comment.movie._id}`);
 };

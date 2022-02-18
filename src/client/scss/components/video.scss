@@ -51,3 +51,11 @@ ul {
   font-size: 14px;
   text-align: center;
 }
+
+.delete-comment{
+  cursor:pointer;
+  display: flex;
+  align-items: center;
+  float: right;
+  margin:auto;
+}
