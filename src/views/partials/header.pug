@@ -17,7 +17,7 @@ header
                     if loggedInUser.avatarUrl === undefined
                       span=loggedInUser.username
                     else
-                      if Heroku
+                      if isHeroku
                         img.header__avatar(src=loggedInUser.avatarUrl, crossorigin)
                       else
                         img.header__avatar(src="/"+loggedInUser.avatarUrl)

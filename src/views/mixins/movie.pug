@@ -1,6 +1,6 @@
 mixin movie(movie)
     a(href=`../movies/${movie.id}`).video-mixin
-        if Heroku 
+        if isHeroku 
             img(src=movie.thumbUrl, crossorigin).video-mixin__thumb
         else 
             img(src="/" + movie.thumbUrl).video-mixin__thumb

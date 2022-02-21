@@ -1,7 +1,7 @@
 extends ../layout.pug
 block content 
     div#videoContainer(data-id=movie._id)
-        if Heroku
+        if isHeroku
             video(src=movie.fileUrl, crossorigin)
         else 
              video(src="/"+movie.fileUrl)

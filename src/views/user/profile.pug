@@ -3,7 +3,7 @@ extends ../layout.pug
 block content 
     div.profile__data
         if user.avatarUrl
-            if Heroku
+            if isHeroku
                 img(src=user.avatarUrl, crossorigin, width="100", height="100") 
             else 
                 img(src="/"+user.avatarUrl, width="100", height="100") 
