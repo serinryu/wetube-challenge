@@ -126,7 +126,7 @@ export const postEditprofile = async (req, res) => {
             return res.status(403).redirect(`/user/profile/${username}`)
         }
         const updatedUser = await User.findOneAndUpdate({username}, {
-            avatarUrl: file ? file.path : avatarUrl,
+            avatarUrl: file ? file.location : avatarUrl,
             name,
             email
         }, { new: true }

@@ -92,8 +92,8 @@ export const postUpload = async (req, res) => {
             rating,
             genre : Movie.formatGenres(genre), //쉼표 포함된 문자열로 받는데 이것을 Movie.js에서 선언한 static 함수 사용하여 배열로 만듦
             owner: _id,
-            fileUrl: video[0].path,
-            thumbUrl: thumb[0].path,
+            fileUrl: video[0].location,
+            thumbUrl: thumb[0].location,
         });
         return res.redirect("/");
     } catch (error) {

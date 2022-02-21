@@ -1,7 +1,7 @@
 extends ../layout.pug
 block content 
     div#videoContainer(data-id=movie._id)
-        video(src="/" + movie.fileUrl) 
+        video(src=movie.fileUrl, crossorigin) 
         div#videoControls.videoControls
             div.videoControls__play
                 span#play.videoControls__playBtn
