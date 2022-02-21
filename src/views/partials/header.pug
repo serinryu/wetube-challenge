@@ -14,7 +14,7 @@ header
                 a(href=`/user/logout`) Log out 
             li
                 a(href=`/user/profile/${loggedInUser.username}`)
-                    if loggedInUser.avatarUrl === ""
+                    if loggedInUser.avatarUrl === undefined
                       span=loggedInUser.username
                     else
                       img.header__avatar(src="/" + loggedInUser.avatarUrl)
