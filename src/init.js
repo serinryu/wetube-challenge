@@ -1,3 +1,4 @@
+import "regenerator-runtime";
 import "dotenv/config"; //.env 사용해주기 위함
 import "./db.js";
 import "./models/Movie.js";
