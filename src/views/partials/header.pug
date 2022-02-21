@@ -15,7 +15,7 @@ header
             li
                 a(href=`/user/profile/${loggedInUser.username}`)
                     if loggedInUser.avatarUrl === ""
-                      span 😀
+                      span=loggedInUser.username
                     else
                       img.header__avatar(src="/" + loggedInUser.avatarUrl)
         else
