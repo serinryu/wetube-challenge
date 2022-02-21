@@ -1,7 +1,10 @@
 extends ../layout.pug
 block content 
     div#videoContainer(data-id=movie._id)
-        video(src=movie.fileUrl, crossorigin) 
+        if Heroku
+            video(src=movie.fileUrl, crossorigin)
+        else 
+             video(src="/"+movie.fileUrl)
         div#videoControls.videoControls
             div.videoControls__play
                 span#play.videoControls__playBtn

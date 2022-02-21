@@ -9,9 +9,17 @@ const s3 = new aws.S3({
     }
 })
 
-const multerUploader = multerS3({
+const isHeroku = process.env.NODE_ENV === "production";
+
+const s3ImageUploader = multerS3({
   s3: s3,
-  bucket: "youtube-clone-challenge",
+  bucket: "youtube-clone-challenge/images",
+  acl: "public-read",
+});
+
+const s3VideoUploader = multerS3({
+  s3: s3,
+  bucket: "youtube-clone-challenge/videos",
   acl: "public-read",
 });
 
@@ -19,6 +27,7 @@ export const localsMiddleware = (req, res, next) => {
     res.locals.siteTitle = "Nomad Movies";
     res.locals.loggedIn = Boolean(req.session.loggedIn);
     res.locals.loggedInUser = req.session.user;
+    res.locals.isHeroku = isHeroku;
     next();
 };
 export const urlLogger = (req, res, next) => {
@@ -63,7 +72,7 @@ export const uploadProfile = multer({
   limits: {
     fileSize: 1000000,
   },
-  storage: multerUploader, //storage 가 있으면 dest 는 무시가 된다.
+  storage: isHeroku ? s3ImageUploader : undefined , //storage 가 있으면 dest 는 무시가 된다.
 });
 
 export const uploadMovie = multer({ 
@@ -71,7 +80,7 @@ export const uploadMovie = multer({
   limits: {
     fileSize: 3000000,
   },
-  storage: multerUploader,
+  storage: isHeroku ? s3VideoUploader : undefined ,
 });
 
 let storage = multer.diskStorage({

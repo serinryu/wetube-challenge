@@ -125,8 +125,9 @@ export const postEditprofile = async (req, res) => {
         if (String(_id) !== String(existsUser._id)){
             return res.status(403).redirect(`/user/profile/${username}`)
         }
+        const isHeroku = process.env.NODE_ENV === "production";
         const updatedUser = await User.findOneAndUpdate({username}, {
-            avatarUrl: file ? file.location : avatarUrl,
+            avatarUrl: file ? (isHeroku ? file.location : file.path) : avatarUrl,
             name,
             email
         }, { new: true }

@@ -83,6 +83,7 @@ export const postUpload = async (req, res) => {
         req.flash("error", "Rate range : 0~10");
         return res.status(400).redirect("/movies/upload");
     }
+    const isHeroku = process.env.NODE_ENV === "production";
     try {
         await Movie.create({
             title,
@@ -92,8 +93,8 @@ export const postUpload = async (req, res) => {
             rating,
             genre : Movie.formatGenres(genre), //쉼표 포함된 문자열로 받는데 이것을 Movie.js에서 선언한 static 함수 사용하여 배열로 만듦
             owner: _id,
-            fileUrl: video[0].location,
-            thumbUrl: thumb[0].location,
+            fileUrl: isHeroku ? video[0].location : video[0].path ,
+            thumbUrl: isHeroku ? thumb[0].location : thumb[0].path,
         });
         return res.redirect("/");
     } catch (error) {
