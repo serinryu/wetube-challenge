@@ -1,4 +1,18 @@
 import multer from "multer";
+import multerS3 from "multer-s3";
+import aws from "aws-sdk";
+
+const s3 = new aws.S3({ 
+    credentials: {
+      accessKeyId: process.env.AWS_ID,
+      secretAccessKey: process.env.AWS_SECRET
+    }
+})
+
+const multerUploader = multerS3({
+  s3: s3,
+  bucket: 'youtube-clone-challenge'
+})
 
 export const localsMiddleware = (req, res, next) => {
     res.locals.siteTitle = "Nomad Movies";
@@ -43,8 +57,21 @@ export const publicOnlyMiddleware = (req, res, next) => {
 };
 
 
-export const uploadProfile = multer({ dest: "assets/" });
-export const uploadMovie = multer({ dest: "movies/" });
+export const uploadProfile = multer({ 
+  dest: "uploads/profile/",
+  limits: {
+    fileSize: 1000000,
+  },
+  storage: multerUploader, //storage 가 있으면 dest 는 무시가 된다.
+});
+
+export const uploadMovie = multer({ 
+  dest: "uploads/movies/",
+  limits: {
+    fileSize: 3000000,
+  },
+  storage: multerUploader,
+});
 
 let storage = multer.diskStorage({
     destination: function(req, file, cb) {

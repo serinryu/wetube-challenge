@@ -6,7 +6,7 @@
     "start": "node build/init.js",
     "build": "npm run build:server && npm run build:assets",
     "build:server": "babel src -d build --ignore src/client",
-    "build:assets": "webpack --mode=production", 
+    "build:assets": "webpack --mode=production",
     "dev:server": "nodemon",
     "dev:assets": "webpack --mode=development -w"
   },
@@ -25,6 +25,7 @@
     "mongoose": "^5.13.14",
     "morgan": "^1.10.0",
     "multer": "^1.4.4",
+    "multer-s3": "^2.10.0",
     "node-fetch": "^3.2.0",
     "pug": "^3.0.2",
     "regenerator-runtime": "^0.13.9"

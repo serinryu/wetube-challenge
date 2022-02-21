@@ -62,6 +62,7 @@ const handleVolume = (event) => {
 }
 
 const handleLoadedMetadata = () => {
+    console.log("hi");
     totalTime.innerText = formatTime(Math.floor(video.duration));
     timeline.max = Math.floor(video.duration);
 };
@@ -109,10 +110,10 @@ const handleMouseLeave = () => {
 
 /*키보드-영상 단축키 모음*/
 const keyboardShortcut = (e) => {
-    if(e.code == 'Space'){
+    if(e.code == 'Space'&& e.target.id !== "textarea"){
         handlePlayClick();
     }
-    if(e.code == 'KeyF'){
+    if(e.code == 'KeyF'&& e.target.id !== "textarea"){
         handleFullscreen();
     }
 };
@@ -136,11 +137,5 @@ video.addEventListener("loadeddata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
 timeline.addEventListener("input", handleTimeline);
 fullScreenBtn.addEventListener("click", handleFullscreen);
-//document.addEventListener("keydown", keyboardShortcut);
+document.addEventListener("keydown", keyboardShortcut);
 video.addEventListener("ended", handleEnded);
-
-document.addEventListener("keypress", (event) => {
-    if (event.code === ("Space"||"keyF") && event.target.id !== "textarea") {
-        handlePlayClick();
-    }
-}); 
