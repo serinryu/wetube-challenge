@@ -83,13 +83,4 @@ export const uploadMovie = multer({
   storage: isHeroku ? s3VideoUploader : undefined ,
 });
 
-let storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-      cb(null, 'texts/');
-    },
-    filename: function(req, file, cb) {
-      cb(null, file.originalname);
-    }
-});
-export const convertFiles = multer({ storage: storage });
 

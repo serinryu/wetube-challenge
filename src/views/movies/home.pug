@@ -1,7 +1,6 @@
 extends ../layout.pug
 include ../mixins/movie.pug
 block content 
-    include ../partials/filterForm.pug
     div.video-grid
         each movie in movies 
             +movie(movie)

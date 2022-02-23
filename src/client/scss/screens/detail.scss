@@ -1,20 +1,63 @@
 .video__data {
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
+    margin-left: 50px;
     flex-direction: column;
     gap: 10px;
     .video__title {
         font-size: 26px;
-        margin-bottom: 5px;
+        margin: 0px;
     }
     .video__owner {
-        margin-bottom: 5px;
-        font-size: 14px;
-        a {
-            color: cornflowerblue;
-            text-decoration: underline;
+        display: flex;
+        justify-content: space-between;
+        width: 40px;
+        .video__owneravatar {
+            float: left;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
         }
+        .video__ownername {
+            margin: auto;
+            margin-left: 10px;
         }
+    }
+    ul {
+        li {
+            float: left;
+            margin-left: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgb(60, 149, 233);
+            text-transform: uppercase;
+        }
+    }
+}
+
+.edit-or-delete {
+    margin: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    a {
+        text-decoration: none;
+    }
+    button {
+        background: none;
+        border: 1px solid rgb(121, 119, 119);
+        border-radius: 5px;
+        color: rgb(22, 21, 21);
+        display: block;
+        margin: 10px;
+        padding: 5px;
+        position: relative;
+        text-transform: uppercase;
+    }
+    button:hover {
+        color: #f1f1f1;
+        background-color: rgba(255, 71, 71, 0.959);
+    }
 }
 
 .video__comments {
@@ -31,4 +74,46 @@
         color: black;
         margin-bottom: 10px;
     }
+    ul {
+        li {
+            float: left;
+            margin-left: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgb(60, 149, 233);
+            text-transform: uppercase;
+        }
+    }
+}
+
+#commentSubmit{
+    position:absolute;
+    width: 100px;
+    margin-left: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.delete-comment{
+    cursor:pointer;
+    display: flex;
+    align-items: center;
+    float: right;
+    margin:auto;
+}
+
+.line {
+    border: 0.1px rgba($color: $bg, $alpha: 0.2) solid;
+}
+
+p {
+    font-size: 15px;
+    margin: 10px;
+    margin-left: 0px;
+}
+
+.contentbox {
+    margin: 5px;
+    padding-left: 0px;
+    color: rgb(100, 99, 99);
 }

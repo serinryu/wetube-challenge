@@ -44,7 +44,6 @@ app.use((req, res, next) => {
 
 app.use("/uploads", express.static("uploads"));
 app.use("/movies", express.static("movies"));
-app.use("/texts", express.static("texts"));
 app.use("/output", express.static("output"));
 app.use("/convert", express.static("node_modules/@ffmpeg/core/dist")); //@ffmpeg/core를 못찾아서 404에러 났는데 core 있는곳 폴더 express static으로 지정해버리고, createFFmpeg() 함수에서 corePath 수동지정
 app.use((req, res, next) => { //@ffmpeg 시 에러 해결(보안문제)

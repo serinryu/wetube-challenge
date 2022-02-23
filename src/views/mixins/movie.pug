@@ -5,5 +5,12 @@ mixin movie(movie)
         else 
             img(src="/" + movie.thumbUrl).video-mixin__thumb
         div.video-mixin__data
+
+            if isHeroku
+                img.video-mixin__avatar(src=movie.owner.avatarUrl, crossorigin)
+            else
+                img.video-mixin__avatar(src="/"+movie.owner.avatarUrl)
+
             span.video-mixin__title=movie.title
-            div.video-mixin__meta=`조회수 ${movie.meta.views}`
+            div.video-mixin__meta=`${movie.owner.username}`
+                div.video-mixin__meta2=`조회수 ${movie.meta.views}회 ∙ ${movie.year}년` 

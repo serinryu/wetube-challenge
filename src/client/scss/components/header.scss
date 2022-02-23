@@ -1,3 +1,11 @@
+// font
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@media(max-width:1100px){
+  .header__logo div {
+    display: none;
+  }
+}
+
 header {
     padding: 20px 50px;
     display: flex;
@@ -6,6 +14,28 @@ header {
     .header__logo {
       color: $red;
       font-size: 38px;
+      div {
+        float: right;
+        padding-left: 5px;
+        color: black;
+        font-family: 'Oswald', sans-serif;
+      }
+    }
+
+    form {
+      margin: 0px 20px;
+      box-shadow: none;
+      background: none;
+      display: flex;
+      flex-direction: row;
+      padding: 5px;
+      justify-self: center;
+      width: 100%;
+      input.search__button{
+        width: 3em;
+        border: 1px solid rgba($color: $bg, $alpha: 0.7);
+        background-color: rgba(240, 240, 240, 0.74) !important;
+      }
     }
     ul {
       display: flex;

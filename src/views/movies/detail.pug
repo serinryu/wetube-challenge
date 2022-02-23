@@ -22,31 +22,47 @@ block content
                 span#fullScreen 
                     i.fas.fa-expand
     div.video__data
+        ul
+            each genre in movie.genre
+                li=`#${genre}`
         p.video__title=movie.title   
-        small.video__owner Uploaded by 
-            a(href=`/user/profile/${movie.owner.username}`)=movie.owner.username
-        small views: #{movie.meta.views}
-        small Rating: #{movie.rating}
-        small Release Year: #{movie.year} 
-        small Description: #{movie.description}
-        small Summary: #{movie.summary} 
 
-    ul
-        each genre in movie.genre
-            li=`#${genre}`
-        else 
-            li No genre found.
+        div.contentbox
+            p=`조회수 ${movie.meta.views}회 ∙ ${movie.year}년 ∙ Rating: ${movie.rating}`
+
+        div.line
+
+        div.video__owner  
+            a(href=`/user/profile/${movie.owner.username}`)
+                if isHeroku
+                    img.video__owneravatar(src=movie.owner.avatarUrl, crossorigin)
+                else
+                    img.video__owneravatar(src="/"+movie.owner.avatarUrl)
+
+            a(href=`/user/profile/${movie.owner.username}`).video__ownername
+                div #{movie.owner.username}
+
+        div.line
+
+        div.contentbox
+            p 📌  Description 
+            p #{movie.description}
+            p 📌  Summary 
+            p #{movie.summary} 
+
+        div.line
 
     if loggedIn
         if String(movie.owner._id) === String(loggedInUser._id)
             div.edit-or-delete
-                a(href=`/movies/${movie.id}/edit`) Edit this movie  ➤
-                br
-                a(href=`/movies/${movie.id}/delete`) Delete this movie  ➤
+                a(href=`/movies/${movie.id}/edit`) 
+                    button Edit this movie
+                a(href=`/movies/${movie.id}/delete`) 
+                    button Delete this movie
 
         div.video__add-comments
             form.video__comment-form#commentForm
-                textarea(cols="30", rows="3", placeholder="Write a nice commment...")
+                textarea(placeholder="Write a nice commment...")
                 button#commentSubmit Add Comment 
     div.video__comments
         ul

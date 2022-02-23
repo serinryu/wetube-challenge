@@ -1,5 +1,5 @@
 #videoContainer {
-    width: 80%;
+    width: 60%;
     display: flex;
     align-items: center;
     margin: auto;
@@ -25,7 +25,8 @@
       grid-template-columns: 1fr 4fr 1fr auto;
       gap: 10px;
       justify-content: space-between;
-      background-color: #0f1117;
+      color: white;
+      background-color: #646464;
       padding: 10px;
       left: 0;
       box-sizing: border-box;

@@ -2,60 +2,28 @@
 .video-mixin {
     .video-mixin__thumb {
       height: 180px;
-      border-radius: 5px;
       width: 100%;
       background-color: ivory;
     }
     .video-mixin__data {
-      padding: 10px 15px;
+      padding: 10px 0px;
       .video-mixin__title {
         font-size: 18px;
         display: block;
-        margin-top: 10px;
       }
       .video-mixin__meta {
         margin-top: 5px;
         font-size: 12px;
+        .video-mixin__meta2{
+          padding-top: 4px;
+        }
+      }
+      .video-mixin__avatar {
+        float:left;
+        padding-right: 7px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
       }
     }
-}
-
-p {
-  font-size: 15px;
-  margin-top: 20px;
-}
-
-ul {
-  padding-top: 20px;
-  li {
-    margin-left: 5px;
-    font-size: 14px;
-    font-weight: 600;
-    margin-top: 20px;
-    text-transform: uppercase;
-  }
-}
-
-.edit-or-delete {
-  margin: 50px;
-  text-align: center;
-  a {
-      text-decoration: underline;
-  }
-}
-
-#commentSubmit{
-  position:absolute;
-  width: 100px;
-  margin-left: 10px;
-  font-size: 14px;
-  text-align: center;
-}
-
-.delete-comment{
-  cursor:pointer;
-  display: flex;
-  align-items: center;
-  float: right;
-  margin:auto;
 }

@@ -1,5 +1,5 @@
 form {
-    max-width: 420px;
+    max-width: 450px;
     margin: 0 auto;
     &:not(.search__form) {
       padding: 30px;
@@ -12,16 +12,16 @@ form {
   input:not(input[type="range"]),
   input[type="submit"] {
     all: unset;
-    padding: 15px 20px;
-    border-radius: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background-color: black;
+    padding: 13px;
+    border-radius: 2px;
+    border: 1px solid rgba($color: $bg, $alpha: 0.7);
+    background-color: white;
     margin-bottom: 5px;
     font-size: 16px;
-    color: white;
+    color: black;
     width: 90%;
     &::placeholder {
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba($color: $bg, $alpha: 0.7);
     }
   }
   
@@ -29,8 +29,8 @@ form {
   .social__btn {
     border-radius: 5px;
     padding: 12px 20px;
-    background-color: white !important;
-    color: rgba($color: $red, $alpha: 1) !important;
+    background-color: rgb(122, 122, 122);
+    color: rgba($color: rgba(68, 68, 68, 0.548), $alpha: 1) !important;
     text-align: center !important;
     cursor: pointer;
     display: block;
@@ -43,4 +43,3 @@ form {
       pointer-events: none;
     }
   }
-

@@ -30,36 +30,39 @@ export const movieDetail = async(req, res) => {
 export const filterMovie = async(req, res) => {
     console.log(req.query);
     const {
-        query: { title, year, rating }
+        query: { title }
+        //query: { title, year, rating }
     } = req;
     try {
         const gettitleMovies = await Movie.find({ 
             title : {$regex: new RegExp(`${title}`, "i")}
         });
-        const getyearMovies = await Movie.find({ 
-            year: { $gte: year } 
-        });
-        const getratingMovies = await Movie.find({ 
-            rating: {$gte: rating } 
-        });
-        //console.log([...getratingMovies, ...getyearMovies])
-        let movies = (title !== "") ? [...gettitleMovies] : [...getratingMovies, ...getyearMovies];
-        movies = _.uniqBy(movies, "id");
-        console.log(movies)
-        //제목 설정
-        const both = year !== "" && rating !== "" ? "||" : "";
-        let pageTitle_two;
-        if (title !== "") {
-            pageTitle_two = `title`
-        } else {
-            pageTitle_two = `
-            ${year === "" ? "" : `year: ${year}`} 
-            ${both} 
-            ${rating === "" ? "" : `rating: ${rating}`}
-            `;
-        }
-        const pageTitle = `Searching by ${pageTitle_two}` 
-        return res.render("movies/home", { pageTitle, movies });
+        return res.render("movies/home", { pageTitle: `Searching by ${title}`, movies: gettitleMovies });
+
+        // const getyearMovies = await Movie.find({ 
+        //     year: { $gte: year } 
+        // });
+        // const getratingMovies = await Movie.find({ 
+        //     rating: {$gte: rating } 
+        // });
+        // console.log([...getratingMovies, ...getyearMovies])
+        // let movies = (title !== "") ? [...gettitleMovies] : [...getratingMovies, ...getyearMovies];
+        // movies = _.uniqBy(movies, "id");
+        // console.log(movies)
+        // //제목 설정
+        // const both = year !== "" && rating !== "" ? "||" : "";
+        // let pageTitle_two;
+        // if (title !== "") {
+        //     pageTitle_two = `title`
+        // } else {
+        //     pageTitle_two = `
+        //     ${year === "" ? "" : `year: ${year}`} 
+        //     ${both} 
+        //     ${rating === "" ? "" : `rating: ${rating}`}
+        //     `;
+        // }
+        // const pageTitle = `Searching by ${pageTitle_two}` 
+        // return res.render("movies/home", { pageTitle, movies });
     } catch (err) {
         console.error(err);
 }
@@ -181,14 +184,11 @@ export const createComment = async (req, res) => {
         body: { text },
         params: { id },
     } = req;
-    console.log(id);
-    console.log("twice..");
     const comment = await Comment.create({   
         text,
         owner: user._id,
         movie: id,
     });
-    console.log(text);
     const movie = await Movie.findById(id); 
     if (!movie) {
         return res.sendStatus(404);
