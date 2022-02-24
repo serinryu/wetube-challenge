@@ -150,8 +150,8 @@ export const postEdit = async (req, res) => {
             description, 
             summary, 
             genre : Movie.formatGenres(genre),
-            fileUrl: video[0].path,
-            thumbUrl: thumb[0].path,
+            fileUrl: isHeroku ? video[0].location : video[0].path ,
+            thumbUrl: isHeroku ? thumb[0].location : thumb[0].path,
         });
         return res.redirect(`/movies/${id}`) 
     } catch (err) {
