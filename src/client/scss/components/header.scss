@@ -23,6 +23,7 @@ header {
     }
 
     form {
+      max-width: 450px !important;
       margin: 0px 20px;
       box-shadow: none;
       background: none;
@@ -46,16 +47,11 @@ header {
         font-size: 14px;
         font-weight: 600;
         text-transform: uppercase;
+        color: black;
       }
       i {
         font-size: 16px;
       }
-    }
-    .header__btn {
-      background-color: white;
-      color: $bg;
-      padding: 5px 10px;
-      border-radius: 5px;
     }
     .header__avatar {
       width: 40px;

@@ -8,11 +8,12 @@
     .video-mixin__data {
       padding: 10px 0px;
       .video-mixin__title {
+        margin: 5px;
         font-size: 18px;
         display: block;
       }
       .video-mixin__meta {
-        margin-top: 5px;
+        margin-top: 10px;
         font-size: 12px;
         .video-mixin__meta2{
           padding-top: 4px;
@@ -21,6 +22,7 @@
       .video-mixin__avatar {
         float:left;
         padding-right: 7px;
+        margin-bottom: 10px;
         width: 40px;
         height: 40px;
         border-radius: 50%;

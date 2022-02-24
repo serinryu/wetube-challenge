@@ -28,7 +28,7 @@ block content
         p.video__title=movie.title   
 
         div.contentbox
-            p=`조회수 ${movie.meta.views}회 ∙ ${movie.year}년 ∙ Rating: ${movie.rating}`
+            p=`조회수 ${movie.meta.views}회 ∙ ${movie.createdYear}년 ${movie.createdMonth}월 ${movie.createdDate}일`
 
         div.line
 
@@ -59,19 +59,37 @@ block content
                     button Edit this movie
                 a(href=`/movies/${movie.id}/delete`) 
                     button Delete this movie
-
-        div.video__add-comments
-            form.video__comment-form#commentForm
-                textarea(placeholder="Write a nice commment...")
-                button#commentSubmit Add Comment 
-    div.video__comments
+        
+    div.video__add-comments
+        if loggedIn
+            div.video__add-comment
+                a(href=`/user/profile/${loggedInUser.username}`)
+                    if isHeroku
+                        img.loggedinuser__avatar(src=loggedInUser.avatarUrl, crossorigin)
+                    else
+                        img.loggedinuser__avatar(src="/"+loggedInUser.avatarUrl)
+                form.video__comment-form#commentForm
+                    div 댓글 #{movie.comments.length}개
+                    textarea(placeholder="Write a nice commment...")
+                    button#commentSubmit 댓글
+    div.video__comments 
         ul
             each comment in movie.comments.reverse()
                 li.video__comment(data-id=comment._id)
-                    i.fas.fa-comment
-                    span  #{comment.text}
-                    if loggedIn && (String(movie.owner._id) === String(loggedInUser._id))
-                        span.delete-comment ❌
+
+                    a(href=`/user/profile/${comment.owner.username}`)
+                        if isHeroku
+                            img.commentowner__avatar(src=comment.owner.avatarUrl, crossorigin)
+                        else
+                            img.commentowner__avatar(src="/"+comment.owner.avatarUrl)
+                    
+                    p #{comment.owner.username}
+                    div.comment-text #{comment.text}
+                    
+                        if loggedIn && (String(comment.owner._id) === String(loggedInUser._id))
+                            div.delete-comment ❌
+
+                    p.line
 
 
 block script 

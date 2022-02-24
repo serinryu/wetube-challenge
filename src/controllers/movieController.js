@@ -16,11 +16,15 @@ export const home = async(req, res) => {
 export const movieDetail = async(req, res) => {
     const { id } = req.params;
     try {
-        const movie = await Movie.findById(id).populate("owner").populate("comments");
+        const movie = await Movie.findById(id).populate("owner").populate({ //nested populate
+            path: "comments",
+            populate: {
+                path: "owner"
+            }
+        });
         if (!movie) {
             return res.render("partials/404", { pageTitle: "Movie is not found"})
         }
-        //console.log(movie);
         return res.render("movies/detail", {pageTitle: movie.title, movie })
     } catch (err) {
         console.error(err);
@@ -76,24 +80,27 @@ export const postUpload = async (req, res) => {
     const {
         user: { _id },
     } = req.session;
-    const { title, id, description, summary, year, rating, genre } = req.body;
+    const { title, description, summary, genre } = req.body;
     const { video, thumb } = req.files;
-    if (year < 0 || year > new Date().getFullYear()) {
-        req.flash("error", "Check year");
-        return res.status(400).redirect("/movies/upload");
-    }
-    if (rating < 0 || rating > 10) {
-        req.flash("error", "Rate range : 0~10");
-        return res.status(400).redirect("/movies/upload");
-    }
+    // if (year < 0 || year > new Date().getFullYear()) {
+    //     req.flash("error", "Check year");
+    //     return res.status(400).redirect("/movies/upload");
+    // }
+    // if (rating < 0 || rating > 10) {
+    //     req.flash("error", "Rate range : 0~10");
+    //     return res.status(400).redirect("/movies/upload");
+    // }
     const isHeroku = process.env.NODE_ENV === "production";
     try {
         await Movie.create({
             title,
             description,
             summary,
-            year,
-            rating,
+            // year,
+            // rating,
+            createdYear : new Date().getFullYear(), 
+            createdMonth : new Date().getMonth() +1, 
+            createdDate : new Date().getDate(), 
             genre : Movie.formatGenres(genre), //쉼표 포함된 문자열로 받는데 이것을 Movie.js에서 선언한 static 함수 사용하여 배열로 만듦
             owner: _id,
             fileUrl: isHeroku ? video[0].location : video[0].path ,
@@ -125,7 +132,7 @@ export const getEdit = async (req, res) => {
 export const postEdit = async (req, res) => {
     const {
         params: { id },
-        body: { title, description, summary, year, rating, genre  }
+        body: { title, description, summary, genre  }
     } = req;
     const { video, thumb } = req.files;
     /*
@@ -142,8 +149,6 @@ export const postEdit = async (req, res) => {
             title, 
             description, 
             summary, 
-            year, 
-            rating, 
             genre : Movie.formatGenres(genre),
             fileUrl: video[0].path,
             thumbUrl: thumb[0].path,
@@ -178,7 +183,6 @@ export const registerView = async (req, res) => {
 
 
 export const createComment = async (req, res) => {
-    /* 댓글이 두 번 작성되는 에러 발생 (post 가 두 번 되고 있다.)*/
     const {
         session: { user },
         body: { text },
@@ -186,16 +190,16 @@ export const createComment = async (req, res) => {
     } = req;
     const comment = await Comment.create({   
         text,
-        owner: user._id,
+        owner: user,
         movie: id,
     });
-    const movie = await Movie.findById(id); 
+    const movie = await Movie.findById(id).populate("comments");
     if (!movie) {
         return res.sendStatus(404);
     }
-    await movie.comments.push(comment._id); 
+    await movie.comments.push(comment); 
     await movie.save();
-    return res.sendStatus(201);
+    return res.status(201).json({ newCommentId: comment._id });
 };
 
 export const deleteComment = async (req, res) => {
@@ -208,7 +212,7 @@ export const deleteComment = async (req, res) => {
         return res.sendStatus(404);
     }
     if (String(user._id) !== String(comment.owner._id)) {
-        return res.Status(403).redirect("/");
+        return res.status(403).redirect("/");
     }
     await Comment.findByIdAndDelete(id);
     return res.sendStatus(201);

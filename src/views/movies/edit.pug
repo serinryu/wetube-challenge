@@ -1,6 +1,6 @@
 extends ../layout.pug
 block content
     if errorMessage
-        span=errorMessage
-    h1 Edit movie
+        span.empty__message=errorMessage
+    h1 Edit video
     include ../partials/editForm.pug

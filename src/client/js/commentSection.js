@@ -4,25 +4,30 @@ const form = document.getElementById("commentForm");
 const deleteBtn = document.querySelector(".delete-comment"); 
 const oneComment = document.querySelector(".video__comment"); 
 
-const addComment = (text) => {
-    const videoComments = document.querySelector(".video__comments ul"); //일회성이니까
-    const newComment = document.createElement("li");
-    const icon = document.createElement("i");
-    const span = document.createElement("span");
-    const span2 = document.createElement("span");
-    newComment.className = "video__comment";
-    icon.className = "fas fa-comment";
-    span2.className = "delete-comment";
-    span.innerText = ` ${text}`;
-    span2.innerText = "❌";
-    newComment.appendChild(icon);
-    newComment.appendChild(span);
-    newComment.appendChild(span2);
-    videoComments.prepend(newComment);
-};
+/* 프로필 사진으로 인해, 너무 복잡해지는 문제 발생. 그냥 리로드로 해결 */
+// const addComment = (text, id) => {
+//     const videoComments = document.querySelector(".video__comments ul"); //일회성이니까
+//     const newComment = document.createElement("li");
+//     newComment.dataset.id = id;
+//     newComment.className = "video__comment";
+//     console.log(id);
+//     const p = document.createElement("p");
+//     const div = document.createElement("div");
+//     const div2 = document.createElement("div");
+//     newComment.className = "video__comment";
+//     div.className = "comment-text";
+//     div2.className = "delete-comment";
+//     p.innerText = `${id}`
+//     div.innerText = `${text}`;
+//     div2.innerText = "❌";
+//     newComment.appendChild(div);
+//     div.appendChild(div2);
+//     videoComments.prepend(newComment);
+// };
 
 const deleteComment = (event) => {
-    const li = event.srcElement.parentNode; //click 이벤트가 발생한 span의 부모노드
+    const div = event.srcElement.parentElement; //click 이벤트가 발생한 span의 부모노드
+    const li = div.parentElement;
     li.remove();
 };
 
@@ -43,7 +48,9 @@ const handleSubmit =  async (e) => {
     });
     if (response.status === 201) {  //fetch 작업을 성공했을 때 
         textarea.value = "";
-        addComment(text);
+        const { newCommentId } = await response.json();
+        //addComment(text, newCommentId);
+        location.reload();
     }
 };
 

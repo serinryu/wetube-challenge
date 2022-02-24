@@ -2,7 +2,7 @@ extends ../layout.pug
 
 block content 
     if errorMessage
-        span=errorMessage
+        span.empty__message=errorMessage
     form(method="POST")
         input(name="name", placeholder="name",  type="text", required)
         input(name="email", placeholder="email", type="text", required)

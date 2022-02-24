@@ -62,7 +62,6 @@ const handleVolume = (event) => {
 }
 
 const handleLoadedMetadata = () => {
-    console.log("hi");
     totalTime.innerText = formatTime(Math.floor(video.duration));
     timeline.max = Math.floor(video.duration);
 };
@@ -109,11 +108,11 @@ const handleMouseLeave = () => {
 };
 
 /*키보드-영상 단축키 모음*/
-const keyboardShortcut = (e) => {
-    if(e.code == 'Space'&& e.target.id !== "textarea"){
+const keyboardShortcut = (event) => {
+    if(event.code == 'Space' && event.target.tagName != "TEXTAREA"){
         handlePlayClick();
     }
-    if(e.code == 'KeyF'&& e.target.id !== "textarea"){
+    if(event.code == 'KeyF' && event.target.tagName != "TEXTAREA"){
         handleFullscreen();
     }
 };

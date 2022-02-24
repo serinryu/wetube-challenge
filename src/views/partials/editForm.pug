@@ -1,4 +1,4 @@
-form(method="POST", enctype="multipart/form-data")
+form(method="POST", enctype="multipart/form-data").upload__form
     label(for="video") Movie File
     input(type="file", accept="video/*", required, id="video", name="video")
 
@@ -11,10 +11,6 @@ form(method="POST", enctype="multipart/form-data")
     input(type="String", placeholder="description", name="description", required, value=movie.description)
     label(for="summary") Summary
     input(type="String", placeholder="summary", name="summary", required, value=movie.summary)
-    label(for="year") Released year
-    input(type="number", placeholder="year", name="year", required, value=movie.year)
-    label(for="rating") Rating
-    input(type="number", placeholder="rating", name="rating", required, value=movie.rating)
     label(for="genre") Genre
     input(type="String", placeholder="genre", name="genre", required, value=movie.genre.join())
-    input(type="submit", value="Edit", required)
+    input(type="submit", value="Edit", required).submitBtn

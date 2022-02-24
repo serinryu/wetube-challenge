@@ -13,4 +13,4 @@ mixin movie(movie)
 
             span.video-mixin__title=movie.title
             div.video-mixin__meta=`${movie.owner.username}`
-                div.video-mixin__meta2=`조회수 ${movie.meta.views}회 ∙ ${movie.year}년` 
+                div.video-mixin__meta2=`조회수 ${movie.meta.views}회 ∙ ${movie.createdYear}년 ${movie.createdMonth}월 ${movie.createdDate}일` 

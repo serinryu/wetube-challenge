@@ -9,13 +9,20 @@
       margin-bottom: 10px;
     }
     h3 {
-      font-size: 18px;
-    }
-    .edit-profile {
-      margin-top: 50px;
+      font-size: 30px;
       text-align: center;
-      a {
-          text-decoration: underline;
-      } 
+    }
+    #edit-profile{
+      width: 150px;
+      height: 40px;
+      margin-top: 40px;
+      font-size: 14px;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+    }
+    #edit-profile:hover{
+      color: white;
+      background-color: rgb(255, 0, 0);
     }
 }
