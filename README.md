@@ -3,7 +3,7 @@ Youtube Clone built using NodeJS, Express, Mongo and ES6 🍎  (Challenge versio
 
 # Skills
 - Frontend: HTML5, CSS3, Pug
-- Backend: NodeJS. MongoDB, Express
+- Backend: NodeJS, MongoDB, Express
 - Deployment : Heroku
 
 https://youtube-clone-challenge.herokuapp.com/
